@@ -9,21 +9,18 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
     if len(square) == 1:
         return square
 
-    if plantation > 8:
-        plantation = 1
-
     # if the silo is in the top left corner
     if siloRow < middle and siloColumn < middle:
-        showSquare(square)
+        showSquare(square)  # Mostrar el estado actual del cuadrado
         square[middle - 1][middle] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle][middle - 1] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle][middle] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
 
         silo1 = siloRow, siloColumn
         silo2 = (middle - 1, 0)
@@ -32,16 +29,16 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
 
     # if the silo is in the top right corner
     elif siloRow < middle and siloColumn >= middle:
-        showSquare(square)
+        showSquare(square)  # Mostrar el estado actual del cuadrado
         square[middle - 1][middle - 1] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle][middle - 1] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle][middle] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
 
         siloColumn -= middle
 
@@ -52,16 +49,16 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
 
     # if the silo is in the bottom left corner
     elif siloRow >= middle and siloColumn < middle:
-        showSquare(square)
+        showSquare(square)  # Mostrar el estado actual del cuadrado
         square[middle - 1][middle - 1] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle - 1][middle] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle][middle] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
 
         siloRow -= middle
 
@@ -75,13 +72,13 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
         showSquare(square)
         square[middle - 1][middle - 1] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle - 1][middle] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
         square[middle][middle - 1] = plantation
         showSquare(square)  # Mostrar el estado actual del cuadrado
-        time.sleep(0.2)
+        time.sleep(0.1)
 
         siloRow -= middle
         siloColumn -= middle
@@ -96,13 +93,9 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
     else:
         square1, square2, square3, square4 = divideSquare(square)
 
-    plantation += 1
     square1 = paintMiddleWithoutIncludingSilo(silo1, square1, plantation)
-    plantation += 1
     square2 = paintMiddleWithoutIncludingSilo(silo2, square2, plantation)
-    plantation += 1
     square3 = paintMiddleWithoutIncludingSilo(silo3, square3, plantation)
-    plantation += 1
     square4 = paintMiddleWithoutIncludingSilo(silo4, square4, plantation)
     square = joinSquares(square1, square2, square3, square4)
     return square
@@ -150,7 +143,7 @@ def createSquare(silo, squareSize):
 def showSquare(square):
     clearConsole()
     printSquare(square)
-    time.sleep(0.5)
+    time.sleep(0.1)
 
 # Función para imprimir la matriz en la consola con colores y caracteres
 def printSquare(square):
