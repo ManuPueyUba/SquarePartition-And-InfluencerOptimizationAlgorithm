@@ -1,4 +1,6 @@
 import sys
+import time
+import os
 
 def paintMiddleWithoutIncludingSilo(silo, square, plantation):
     siloRow, siloColumn = silo
@@ -12,9 +14,16 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
 
     # if the silo is in the top left corner
     if siloRow < middle and siloColumn < middle:
+        showSquare(square)
         square[middle - 1][middle] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle][middle - 1] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle][middle] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
 
         silo1 = siloRow, siloColumn
         silo2 = (middle - 1, 0)
@@ -23,9 +32,17 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
 
     # if the silo is in the top right corner
     elif siloRow < middle and siloColumn >= middle:
+        showSquare(square)
         square[middle - 1][middle - 1] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle][middle - 1] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle][middle] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
+
         siloColumn -= middle
 
         silo1 = (middle - 1, middle - 1)
@@ -35,9 +52,16 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
 
     # if the silo is in the bottom left corner
     elif siloRow >= middle and siloColumn < middle:
+        showSquare(square)
         square[middle - 1][middle - 1] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle - 1][middle] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle][middle] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
 
         siloRow -= middle
 
@@ -48,9 +72,16 @@ def paintMiddleWithoutIncludingSilo(silo, square, plantation):
 
     # if the silo is in the bottom right corner
     elif siloRow >= middle and siloColumn >= middle:
+        showSquare(square)
         square[middle - 1][middle - 1] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle - 1][middle] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
         square[middle][middle - 1] = plantation
+        showSquare(square)  # Mostrar el estado actual del cuadrado
+        time.sleep(0.2)
 
         siloRow -= middle
         siloColumn -= middle
@@ -104,7 +135,6 @@ def joinSquares(square1, square2, square3, square4):
     return merged_matrix
 
 
-# Square with lists
 def createSquare(silo, squareSize):
     siloRow, siloColumn = silo
     square = []
@@ -115,6 +145,31 @@ def createSquare(silo, squareSize):
         square.append(row)
     square[siloRow][siloColumn] = 0
     return square
+
+# Función para mostrar el cuadrado completo
+def showSquare(square):
+    clearConsole()
+    printSquare(square)
+    time.sleep(0.5)
+
+# Función para imprimir la matriz en la consola con colores y caracteres
+def printSquare(square):
+    for row in square:
+        for cell in row:
+            if cell == 0:
+                print("\033[1;31m" + "■", end=" ")  # Rojo para el silo
+            elif cell == 1:
+                print("\033[1;37m" + "■", end=" ")  # Gris para el campo sin pintar
+            else:
+                print("\033[1;32m" + "■", end=" ")  # Verde para el campo pintado
+        print("\033[0m")  # Resetear el color
+
+# Función para limpiar la consola
+def clearConsole():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 
 def main():
@@ -128,13 +183,11 @@ def main():
 
     silo = (siloRow, siloColumn)
     square = createSquare(silo, squareSize)
-    for row in square:
-        print(row)
-    square = paintMiddleWithoutIncludingSilo(silo, square, 1)
-    print("Final Square:")
-    for row in square:
-        print(row)
-    return square
-
+    print("Cuadrado Inicial:")
+    printSquare(square)
+    time.sleep(1)  # Pausa antes de empezar a pintar
+    square = paintMiddleWithoutIncludingSilo(silo, square, 2)  # Iniciar la plantación con el valor 2
+    print("Cuadrado Final:")
+    printSquare(square)
 
 main()
